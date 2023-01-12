@@ -1,22 +1,14 @@
-import axios from "axios";
-import React from "react";
+import { api } from "../common/api.base";
 
-const baseURL = "https://api.themoviedb.org/3/movie/";
 const api_key= "2c6cd383602f9dd84e2c543271f39c40";
+const endpoint= `/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity
+.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
 
-export default function Movies(){
-  const [post, setPost] = React.useState(null);
-  const [error, setError] = React.useState(null);
-
-  React.useEffect(() => {
-      axios.get(`${baseURL}315162?api_key=${api_key}&language=en-US`).then((response) => {
-          setPost(response.data);
-          console.log(response.data);
-        }).catch(error => {
-            setError(error);
-            if (!post) return "No post!";
-      return `Error: ${error.message}`;
-    });
-  }, []);
-  return null;
+export const movies = {
+  getAll: function({page = 1}:{page?:number}){
+    return api.get(endpoint, {params:{
+      page
+    }})
+  }
 }
+
