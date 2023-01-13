@@ -1,6 +1,11 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Divider, Typography} from "@mui/material";
 import React from "react";
 
+type CardProps = {
+    image: string; 
+    title: string; 
+}
+
 export const CardComponent: React.FC<{}> = () => {
     return(
         <Card sx={{ maxWidth: 220   }}>
