@@ -1,9 +1,8 @@
 import React from "react";
-import {Container} from "@mui/material"
-import {CardComponent} from "../../components/movies/MovieCard";
+import {Box} from "@mui/material"
+import {CardComponent} from "../../components/MovieCard";
 import {general} from "../../api/common/general.service";
-import { isNumberObject } from "util/types";
-
+import {Carrousel} from "../../components/Carrousel";
 
 export const HomePage: React.FC<{}> = () =>{
     
@@ -15,9 +14,6 @@ export const HomePage: React.FC<{}> = () =>{
         })
     },[])
     return(
-        <Container sx={{mt: 9}} maxWidth="xl">
-            <CardComponent></CardComponent>
-            
-        </Container>    
+        <div></div>
     );
 };

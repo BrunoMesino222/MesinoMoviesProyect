@@ -5,22 +5,26 @@ type CardProps = {
     image: string; 
     title: string; 
 }
-
-export const CardComponent: React.FC<{}> = () => {
+//@ts-ignore
+export const CardComponent: React.FC<{}> = ({results}) => {
+//@ts-ignore    
+    results.map(x =>{
+        let {tittle, image, genre} = x;
     return(
         <Card sx={{ maxWidth: 220   }}>
             <CardMedia
                 component="img"
-                height="194"
-                image=""/>
+                height="200"
+                image={image}/>
             <CardContent>
-                <Typography variant="h4" sx={{mt:1.5}}>Hola</Typography>
+                <Typography variant="h6" sx={{mt:1}}>{tittle}</Typography>
                 <Divider/>
-                <Typography sx={{mt:2}}>Description</Typography>
+                <Typography sx={{mt:0.5}}>{genre}</Typography>
+                <Typography sx={{mt:0.5}}>Description</Typography> 
             </CardContent>
             <CardActions>
                 <Button fullWidth variant="contained" size="small"></Button>
             </CardActions>
         </Card>
     )
-}
+} )}
