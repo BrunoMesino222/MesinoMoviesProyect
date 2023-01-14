@@ -1,30 +1,33 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Divider, Typography} from "@mui/material";
 import React from "react";
-
+import { CardComponentT } from "./MovieCard.types";
+import {RatingCustom} from '../components/Rating'
 type CardProps = {
     image: string; 
     title: string; 
 }
-//@ts-ignore
-export const CardComponent: React.FC<{}> = ({results}) => {
-//@ts-ignore    
-    results.map(x =>{
-        let {tittle, image, genre} = x;
+export const CardComponent = ({results}:CardComponentT) => {
+    return <>
+    { results.map(x =>{
+        let {title, poster_path,overview, vote_average, genre_ids, id} = x;
     return(
         <Card sx={{ maxWidth: 220   }}>
             <CardMedia
                 component="img"
                 height="200"
-                image={image}/>
+                image={ `https://image.tmdb.org/t/p/w500/${poster_path}`}/>
             <CardContent>
-                <Typography variant="h6" sx={{mt:1}}>{tittle}</Typography>
+                <Typography variant="h6" sx={{mt:1}}>{title}</Typography>
                 <Divider/>
-                <Typography sx={{mt:0.5}}>{genre}</Typography>
-                <Typography sx={{mt:0.5}}>Description</Typography> 
+                {genre_ids && <Typography sx={{mt:0.5}}>{genre_ids[0]}</Typography>}
+                <Typography sx={{mt:0.5}}>Description:</Typography> 
+                <Typography>{overview}</Typography>
             </CardContent>
             <CardActions>
                 <Button fullWidth variant="contained" size="small"></Button>
             </CardActions>
+            <RatingCustom movie_id={id || 0}/>
         </Card>
     )
-} )}
+} )}</>
+}

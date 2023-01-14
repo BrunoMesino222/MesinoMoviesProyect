@@ -12,15 +12,14 @@ export const general = {
   })
   },
   closeSessionId: function(session_id:string){
-    const endpoint ='/authentication/session'
-    return api.delete(endpoint, {params:{
-      session_id,
-      api_key
-    }
+    const endpoint =`/authentication/session`
+    return api.delete(endpoint,{ params:{
+      guest_session_id: session_id,
+      api_key}
   })
   },
-  getAll: function({page = 1}:{page:any}){
-    const endpoint= `/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity
+  getAll: function({page = 1, target='popular'}:{page:number, target:'popular'|'top_rated'|'upcoming'}){
+    const endpoint= `/movie/${target}?api_key=${api_key}&language=en-US&sort_by=popularity
     .desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
     return api.get(endpoint, {params:{
       page
@@ -36,4 +35,17 @@ export const general = {
     }
   })
   }
+}
+
+export const logged = {
+  rateMovie: function(session_id:string, value:number, movie_id: number){
+    const endpoint = `/movie/${movie_id}/rating?api_key=${api_key}&guest_session_id=${session_id}`
+    return api.post(endpoint, {
+      value: Number(value),
+  },{
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    }
+  })
+  },
 }
